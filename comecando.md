@@ -2,6 +2,12 @@
 
 Git é uma ferramenta incrível, e seu uso mais básico é o de versionar arquivos. Versionar significa criar multiplas versões de um arquivo, de modo que você possa recuperar versões antigas e entender quais foram as mudanças que aconteceram entre essas versões.
 
+## Porque esse tutorial?
+
+Você provavelmente já sabe usar alguns comandos no git, como muitos sabem. A questão é que Git é uma ferramenta confusa. Claramente ser intuitivo para novos usuários não foi uma prioridade no seu desenvolvimento. Porém, o Git é muito poderoso e por isso se tornou central ao desenvolvimento de software atual. Com isso, temos usuário que usam diariamente algo que eles não entendem e acabam não conseguindo aproveitar totalmente.
+![XKCD sobre Git](https://imgs.xkcd.com/comics/git.png)
+O humilde objetivo desse tutorial é dar um conhecimento mais amplo de git para que voce possa entender  o que está fazendo quando executa aquele comando maluco que achou no stack overflow. Ou melhor, ser voce mesmo a pessoa que escreve aqueles comandos.
+
 ## Terminal
 
 Esse tutorial será dado usando como exemplos o git via terminal. Porque não utilizar um cliente Git com interface gráfica?
