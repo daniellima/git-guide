@@ -342,6 +342,6 @@ Podemos então dizer que um arquivo, para o Git, pode estar em um desses quatro 
 - **staged**, quando modificações no arquivo foram postas na area de staging para serem commitadas.
 
 Essa imagem resume bem os estados de um arquivo e como ele pode transitar entre esses estados:
-
+![ilustração dos estados de um arquivo e como navegar entre eles](git-workshop/git_file_states.png)
 
 
