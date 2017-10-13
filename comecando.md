@@ -5,7 +5,9 @@ Git é uma ferramenta incrível, e seu uso mais básico é o de versionar arquiv
 ## Porque esse tutorial?
 
 Você provavelmente já sabe usar alguns comandos no git, como muitos sabem. A questão é que Git é uma ferramenta confusa. Claramente ser intuitivo para novos usuários não foi uma prioridade no seu desenvolvimento. Porém, o Git é muito poderoso e por isso se tornou central ao desenvolvimento de software atual. Com isso, temos usuário que usam diariamente algo que eles não entendem e acabam não conseguindo aproveitar totalmente.
+
 ![XKCD sobre Git](https://imgs.xkcd.com/comics/git.png)
+
 O humilde objetivo desse tutorial é dar um conhecimento mais amplo de git para que voce possa entender  o que está fazendo quando executa aquele comando maluco que achou no stack overflow. Ou melhor, ser voce mesmo a pessoa que escreve aqueles comandos.
 
 ## Terminal
@@ -23,73 +25,67 @@ Dito isso, existem casos em que realmente é melhor utilizar um cliente gráfico
 
 Crie uma pasta no sistema e crie um arquivo chamado ``main.py`` com esse conteúdo:
 
-```
+```python
 print("Hello Word")
 ```
 Executeo com ``python main.py``.. Se não tiver python na sua máquina, pode usar qualquer outra linguagem. O foco não é esse e será tranquilho seguir o tutorial.
 
 O Git trabalha com repositorios. Um repositorio nada mais é do que uma pasta que foi "inicializada" pelo Git. Para isso, execute o comando na pasta que você criou:
-```
-git init
-# output
-# Initialized empty Git repository in /caminho_para_sua_pasta/.git/
+```console
+$ git init
+Initialized empty Git repository in /caminho\_para\_sua_pasta/.git/
 ```
 Se executar ``ls -a`` no seu terminal, verá que o Git criou uma pasta chamada ``.git`` no seu diretótio atual. A presença dessa pasta é que indica que a pasta e todos os arquivos e subdiretórios são partes de um mesmo repositório Git. Note que todas as informações que o Git possui sobre o repositorio estão nessa pasta ``.git``. Remova ela e essa pasta voltará a ser uma pasta normal novamente.
 
 Com um repositorio criado, já é possível executar o comando mais repetido do Git:
-```
-git status
-# output:
-# On branch master
-#
-# Initial commit
-# 
-# Untracked files:
-#   (use "git add <file>..." to include in what will be committed)
-# 
-# 	main.py
-# 
-# nothing added to commit but untracked files present (use "git add" to track)
+```console
+$ git status
+On branch master
+
+Initial commit
+ 
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+ 
+ 	main.py
+ 
+nothing added to commit but untracked files present (use "git add" to track)
 ```
 Esse comando mostra diversas informações sobre o repositório. Vamos focar só no fato de que ele está dizendo que o arquivo ``main.py`` está "untracked".
 
 Mesmo que você tenha criado o repositorio, isso não significa que o Git irá versionar tudo que está dentro do repositorio. Você precisa explicitamente dizer a ele quais arquivos você quer versionar. No ``git status`` o Git sempre mostraŕa quais arquivos ele não está rastreando.
 
 Para que o Git rastreie esse arquivo, execute:
-```
-git add main.py
-# output
-# (vazio)
+```console
+$ git add main.py
 ```
 E depois o ``git status`` novamente:
-```
-git status
-# output
-# On branch master
-# 
-# Initial commit
-# 
-# Changes to be committed:
-#   (use "git rm --cached <file>..." to unstage)
-# 
-# 	new file:   main.py
+```console
+$ git status
+On branch master
+ 
+Initial commit
+ 
+Changes to be committed:
+   (use "git rm --cached <file>..." to unstage)
+ 
+ 	new file:   main.py
 ```
 Agora que o Git reconhece nossa arquivo, podemos criar um ``commit``, que efetivamente diz ao Git para salvar nossas alterações no repositorio. Como dito antes, o Git permite a você entender as alterações a serem feitas. Para isso, ele irá pedir uma descrição de que alteração foi feita. Vamos simplesmente usar "Adicionando arquivo main.py." como descrição.
 > Atenço: O Git precisa de seu nome e email para registrar quem fez as mudanças.
 > Para registrar essas informações, execute ``git config --global --edit``e coloque seu nome e email.
-```
-git commit -m "Adicionando arquivo main.py."
-# output
-# [master (root-commit) 324e034] Adicionando arquivo main.py.
-#  1 file changed, 1 insertion(+)
-#  create mode 100644 main.py
+```console
+$ git commit -m "Adicionando arquivo main.py."
+[master (root-commit) 324e034] Adicionando arquivo main.py.
+ 1 file changed, 1 insertion(+)
+ create mode 100644 main.py
 ```
 Caso você não passe o argumento ``-m``, um editor de texto feito para terminal deverá abrir para que você coloque a mensagem. Basta editar o arquivo e salvar para terminar o commit.
 
 Executando git status novamente vemos que não existe nenhuma mudança presente.
 
 O que acabamos de fazer com apenas um arquivo também pode ser feito para multiplos arquivos. Vamos criar um novo e commitar:
-```
+```console
 $ echo "Repositorio para demonstração." >> readme.txt # criando o arquivo usando bash
 $ git add readme.txt
 $ git commit -m "Adicionando readme"
@@ -98,7 +94,7 @@ $ git commit -m "Adicionando readme"
  create mode 100644 readme.txt
 ```
 O Git coloca todas as mudanças que você faz em todos os arquivos dentro desse diretorio e nos subdiretorios juntos em um commit. Edite ambos os arquivos e veja:
-```
+```console
 $ git status
 On branch master
 Changes not staged for commit:
@@ -111,7 +107,7 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
 O git considera ambas as mudanças. Para commitá-las, basta seguir os mesmos passos de antes: ``git add`` e ``git commit``.
-```
+```console
 $ git add main.py
 $ git add readme.txt 
 $ git commit -m "Pequenas modificações"
@@ -126,13 +122,14 @@ $ git commit -m "Pequenas modificações"
 
 No começo desse tutorial eu disse que criamos versões dos arquivos de mode que:
 > você possa recuperar versões antigas e entender quais foram as mudanças que aconteceram entre essas versões.
+
 Até agora só criamos versões. Está na hora de olhar a história.
 
 (TODO)
 
 # O Indice e a Area de Staging
 Um ponto interessante que você pode estar se perguntando é: porque eu preciso sempre confirmar todas as mudanças que estou fazendo com ``git add``? A resposta é que o Git permite que você commite apenas *parte* das mudanças que você realizou. Edite ambos os arquivos e execute ``git add`` em apenas um deles:
-```
+```console
 $ git add main.py
 $ git status
 On branch master
@@ -148,7 +145,7 @@ Changes not staged for commit:
 	modified:   readme.txt
 ```
 Se você executar ``git commit``, somente as mudanças em main.py serão commitadas e as mudanças em readme.txt *NÃO* serão. Ou seja, existe uma clara diferença para o Git entre arquivos modificados que ele detectou e quais das mudanças efetivamente devem ser adicionadas no próximo commit.
-```
+```console
 $ git commit -m "Alterando main.py sem alterar readme.txt"
 [master 0247eab] test
  1 file changed, 1 insertion(+), 1 deletion(-)
@@ -163,14 +160,15 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
 Esse lugar, onde as mudanças que vão ser commitadas ficam, é chamado de "staging area". Uma mudança "staged" é uma que está pronta para ser commitada. Perceba que eu disse mudança, não necessariamente arquivo. É possível enviar para a area de staging apenas parte das alterações feitas. Altere o arquivo ``main.py`` da seguinte forma:
-```
+```python
 # Escreve um hello world:
+
 print("Hello World")
 
 # Fim do programa
 ```
 E agora execute ``git add --patch``:
-```
+```console
 $ git add --patch
 diff --git a/main.py b/main.py
 index 184b866..e70ab09 100644
@@ -228,7 +226,7 @@ Changes not staged for commit:
 O comando ``git add --patch`` é interativo, e escrevendo ``?`` você consegue ver a lista de comandos. Nesses comandos anteriores, conseguimos commitar apenas a primeira linha mas não a segunda. O arquivo então aparece tanto como modificado, quanto como tendo modificações na area de staging.
 
 Para ver essas modificações é possível usar o ``git diff``:
-```
+```console
 $ git diff --staged
 diff --git a/main.py b/main.py
 index 184b866..e174620 100644
@@ -250,8 +248,8 @@ index e174620..e70ab09 100644
 ```
 Usando ``git diff --staged`` você consegue ver as mudanças entre o que está modificado e o que está na area de staging.
 
-Mas e se voce enviar algum coisa para a area de staging e quiser retirar depois? Usamos o comando ``gti reset``:
-```
+Mas e se voce enviar algum coisa para a area de staging e quiser retirar depois? Usamos o comando ``git reset``:
+```console
 $ git reset --patch HEAD main.py
 diff --git a/main.py b/main.py
 index 184b866..e174620 100644
@@ -300,7 +298,7 @@ print("Hello World!!")
 Assim como o ``git reset``, esse comando faz mais do que simplesmente desfazer mudanças, e revisitaremos ele mais tarde.
 
 Para retirar um arquivo do Git, deixando ele untracked, utilizamos o ``git rm``:
-```
+```console
 $ git rm --cached readme.txt
 rm 'readme.txt'
 $ git status
@@ -316,7 +314,7 @@ Untracked files:
 	readme.txt
 ```
 A opção ``--cached`` aqui na verdade quer dizer "staged". Ela diz ao Git para somente registrar a mudança da remoção na area de staging mas não efetivamente remover o arquivo. Como o ``git status`` mostra, o arquivo ainda existe no sistema de arquivos mas está untracked. Usar o ``git rm`` sem a opção ``--cached`` é equivalente a remover o arquivo manualmente e depois usar ``git add`` para registrar a mudança na area de staging.
-```
+```console
 $ git rm readme.txt
 $ git add readme.txt 
 $ git status
@@ -342,6 +340,6 @@ Podemos então dizer que um arquivo, para o Git, pode estar em um desses quatro 
 - **staged**, quando modificações no arquivo foram postas na area de staging para serem commitadas.
 
 Essa imagem resume bem os estados de um arquivo e como ele pode transitar entre esses estados:
-![ilustração dos estados de um arquivo e como navegar entre eles](git-workshop/git_file_states.png)
+![ilustração dos estados de um arquivo e como navegar entre eles](https://raw.githubusercontent.com/stone-payments/git-workshop/master/git_file_states.png?token=AC8p7Gb-tZarTWHY5Czcjb6nuLnKBAFIks5Z6lHbwA%3D%3D)
 
 
