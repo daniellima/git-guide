@@ -19,7 +19,7 @@ Esse tutorial será dado usando como exemplos o git via terminal. Porque não ut
 
 Dito isso, existem casos em que realmente é melhor utilizar um cliente gráfico para Git, que serão comentados ao longo do tutorial.
 
-## Versionando o primeiro arquivo
+## Versionando arquivos
 
 Crie uma pasta no sistema e crie um arquivo chamado ``main.py`` com esse conteúdo:
 
@@ -53,7 +53,7 @@ git status
 ```
 Esse comando mostra diversas informações sobre o repositório. Vamos focar só no fato de que ele está dizendo que o arquivo ``main.py`` está "untracked".
 
-Mesmo que você tenha criado o repositorio, isso não significa que o Git irá versionar tudo que está dentro do repositorio. Você precisa explicitamente dizer a ele quais arquivos você quer versionar. No ``git status`` o Git sempre mostraŕa quais arquivos ele não está rastreando. Caso um arquivo nunca sera rastreado, é possível fazer o Git ignorar esse arquivo, como veremos adiante.
+Mesmo que você tenha criado o repositorio, isso não significa que o Git irá versionar tudo que está dentro do repositorio. Você precisa explicitamente dizer a ele quais arquivos você quer versionar. No ``git status`` o Git sempre mostraŕa quais arquivos ele não está rastreando.
 
 Para que o Git rastreie esse arquivo, execute:
 ```
@@ -74,8 +74,8 @@ git status
 # 
 # 	new file:   main.py
 ```
-Agora que o Git reconhece nossa arquivo, podemos criar um ``commit``, que efetivamente diz ao Git para salvar nossas alterações no repositorio. Como dito antes, o Git permite a você entender as alterações a serem feitas. Por isso, ele irá pedir uma descrição de que alteração foi feita. Vamos simplesmente usar "Adicionando arquivo main.py." como descrição.
-> Atenço: O Git precisa de seu nome e email para registrar quem fez as mudanças. A importancia disso ficará mais evidente ao longo do tutorial.
+Agora que o Git reconhece nossa arquivo, podemos criar um ``commit``, que efetivamente diz ao Git para salvar nossas alterações no repositorio. Como dito antes, o Git permite a você entender as alterações a serem feitas. Para isso, ele irá pedir uma descrição de que alteração foi feita. Vamos simplesmente usar "Adicionando arquivo main.py." como descrição.
+> Atenço: O Git precisa de seu nome e email para registrar quem fez as mudanças.
 > Para registrar essas informações, execute ``git config --global --edit``e coloque seu nome e email.
 ```
 git commit -m "Adicionando arquivo main.py."
@@ -87,3 +87,82 @@ git commit -m "Adicionando arquivo main.py."
 Caso você não passe o argumento ``-m``, um editor de texto feito para terminal deverá abrir para que você coloque a mensagem. Basta editar o arquivo e salvar para terminar o commit.
 
 Executando git status novamente vemos que não existe nenhuma mudança presente.
+
+O que acabamos de fazer com apenas um arquivo também pode ser feito para multiplos arquivos. Vamos criar um novo e commitar:
+```
+$ echo "Repositorio para demonstração." >> readme.txt # criando o arquivo usando bash
+$ git add readme.txt
+$ git commit -m "Adicionando readme"
+[master 5bc21f2] Adicionando readme
+ 1 file changed, 1 insertion(+)
+ create mode 100644 readme.txt
+```
+O Git coloca todas as mudanças que você faz em todos os arquivos dentro desse diretorio e nos subdiretorios juntos em um commit. Edite ambos os arquivos e veja:
+```
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   main.py
+	modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+O git considera ambas as mudanças. Para commitá-las, basta seguir os mesmos passos de antes: ``git add`` e ``git commit``.
+```
+$ git add main.py
+$ git add readme.txt 
+$ git commit -m "Pequenas modificações"
+[master 9d71ac2] Pequenas modificações
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+```
+> Existem duas coisa que você pode fazer para tornar esse processo mais rápido. Um é executar ``git add .``, que adiciona as modificações de todos os arquivos e arquivos untracked. 
+> Outra, ainda melhor, é executar ``git commit -am 'sua mensagem'``. Ele adiciona as mudanças e cria um novo commit. Só tome cuidado porque o ``git commit -am`` **NÃO** adiciona arquivos que estão untracked.
+> Sempre execute ``git status`` para entender o que você vai estar commitando. É comum fazer mudanças que você não espera e commita-lás sem querer.
+
+Um ponto interessante que você pode estar se perguntando é: porque eu preciso sempre confirmar todas as mudanças que estou fazendo com ``git add``? A resposta é que o Git permite que você commite apenas *parte* das mudanças que você realizou. Edite novamente ambos os arquivos e execute ``git add`` em apenas um deles:
+```
+$ git add main.py
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   main.py
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   readme.txt
+```
+Se você executar ``git commit``, somente as mudanças em main.py serão commitadas e as mudanças em readme.txt *NÃO* serão. Ou seja, existe uma clara diferença para o Git entre arquivos modificados que ele detectou e quais das mudanças efetivamente devem ser adicionadas no próximo commit.
+```
+$ git commit -m "Alterando main.py sem alterar readme.txt"
+[master 0247eab] test
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+Esse lugar, onde as mudanças que vão ser commitadas ficam, é chamado de "staging area" ou "the index" pela documentação do Git. Uma mudança "staged" é uma que está pronta para ser commitada.
+
+Ou seja, existem quatro possíveis 'estados' de um arquivo:
+- **untracked**, quando o Git não sabe o que fazer com esse arquivo. 
+- **tracked**, quando o Git já sabe, mas ele continua igual ao ultimo commit.
+- **modificado**, quando o arquivo não está igual ao ultimo commit.
+- **staged**, quando modificações no arquivo foram postas na staging area.
+
+Existe mais a falar sobre essa staging area, mas voltaremos a isso depois.
+
+# Usando a Historia
+(TODO)
+
