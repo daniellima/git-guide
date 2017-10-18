@@ -1,43 +1,53 @@
-# Git é uma forma de versionar seus arquivos
+# Git Init
 
-Git é uma ferramenta incrível, e seu uso mais básico é o de versionar arquivos. Versionar significa criar multiplas versões de um arquivo, de modo que você possa recuperar versões antigas e entender quais foram as mudanças que aconteceram entre essas versões.
+Se você chegou a esse tutorial provavelmente sabe que o Git é uma forma de versionar arquivos. Isso significa que ele te permite salvar versões antigas de um conjunto de arquivos e retornar a essas versões a qualquer momento, além de entender quais foram as mudanças entre cada versão e como elas aconteceram.
 
-## Porque esse tutorial?
+## Esse tutorial
 
-Você provavelmente já sabe usar alguns comandos no git, como muitos sabem. A questão é que Git é uma ferramenta confusa. Claramente ser intuitivo para novos usuários não foi uma prioridade no seu desenvolvimento. Porém, o Git é muito poderoso e por isso se tornou central ao desenvolvimento de software atual. Com isso, temos usuário que usam diariamente algo que eles não entendem e acabam não conseguindo aproveitar totalmente.
+Esse tutorial é para quem quer aprender sobre Git do zero ou para quem já sabe usar Git no dia a dia mas não se sente seguro usando a ferramenta, ou seja, não conhece muito bem os conceitos e queria entender melhor para usar todos os recursos que o Git oferece.
+
+Lembrando que esse tutorial entra em detalhes, ensinando de forma mais completa e por isso não é adequado se você precisa usar Git o mais rápido possível. Ou seja, não é um "Quickstart". Para isso existem vários tutoriais na internet que vão te ensinar superficialmente os comandos.
+
+A questão é que muitas vezes ficamos assim quando olhamos só superficialmente:
 
 ![XKCD sobre Git](https://imgs.xkcd.com/comics/git.png)
 
-O humilde objetivo desse tutorial é dar um conhecimento mais amplo de git para que voce possa entender  o que está fazendo quando executa aquele comando maluco que achou no stack overflow. Ou melhor, ser voce mesmo a pessoa que escreve aqueles comandos.
+Não tem problema nenhum só saber superficialmente o Git, porque Git **é** uma ferramenta confusa. Claramente ser intuitivo para novos usuários não foi uma prioridade no seu desenvolvimento. Mas como Git é muito poderoso e se tornou central ao desenvolvimento de software atual, valhe a pena investir um tempo em aprender a usar todo o potencial da ferramenta.
 
 ## Terminal
 
-Esse tutorial será dado usando como exemplos o git via terminal. Porque não utilizar um cliente Git com interface gráfica?
+Esse tutorial será dado usando como exemplos o Git via terminal. Porque não utilizar um cliente Git com interface gráfica?
 
 * Porque interfaces gráficas geralmente simplificam funcionalidades para você ou criam suas próprias formas de funcionar. Isso significa que se você trocar de ferramenta, acabará tendo que aprender muita coisa novamente.
-* Dificilmente uma interface gráfica de dara acesso a todas as funcionalidades do Git.
+* Dificilmente uma interface gráfica te pferecerá acesso a todas as funcionalidades do Git.
 * Procurar ajuda na internet geralmente te leva a pessoas dizendo que comandos executar, porque é muito mais fácil dizer o passo a passo via linha de comando.
-* Em alguns ambientes, como servidores remotos, é impossvel abrir um cliente com interface gráfica.
-
-Dito isso, existem casos em que realmente é melhor utilizar um cliente gráfico para Git, que serão comentados ao longo do tutorial.
+* Em alguns ambientes, como servidores remotos, é impossível abrir um cliente com interface gráfica.
 
 ## Versionando arquivos
 
-Crie uma pasta no sistema e crie um arquivo chamado ``main.py`` com esse conteúdo:
+Como dito antes, o Git versiona arquivos. O nome que o Git dá para essas versões é *commit*. "Commitar" é o ato de criar uma nova versão. É importante mencionar que cada commit (versão) pode conter todas as mudanças de um conjunto de arquivos, e não de apenas um arquivo.
+
+O conjunto de arquivos que o Git observa são os arquivos dentro de um repositorio Git. Um repositorio nada mais é do que uma pasta que foi "inicializada" pelo Git. Crie uma nova pasta e execute o comando na pasta que você criou:
+
+```console
+$ git init
+Initialized empty Git repository in /caminho_para_sua_pasta/.git/
+```
+Se executar ``ls -a`` no seu terminal, verá que o Git criou um subdiretório chamado ``.git`` no seu diretório atual. A presença desse subdiretório é que indica que o diretório e todos os seus arquivos são parte de um mesmo repositório Git. Note que todas as informações que o Git possui sobre o repositório estão nesse subdiretório ``.git``, que funciona como um banco de dados de todas as informações que o Git precisa. 
+
+Quando você executa qualquer comando Git, ele irá procurar no diretório atual em que você executou o comando, ou no diretório pai mais próximo, por um subdiretório ``.git`` e usará as informações contidas nele para realizar o comando. Para o diretório deixar de ser um repositório Git, basta deletar o subdiretório ``.git``.
+
+Logo, é correto dizer que todos os seus commits ficam na pasta ``.git``, e que cada commit é uma versão dos arquivos desse repositório.
+
+Agora vamos adicionar arquivos ao nosso repositório e criar commits. Nessa mesma pasta, crie um arquivo chamado ``main.py`` com esse conteúdo:
 
 ```python
 print("Hello Word")
 ```
-Executeo com ``python main.py``.. Se não tiver python na sua máquina, pode usar qualquer outra linguagem. O foco não é esse e será tranquilho seguir o tutorial.
+Execute-o com ``python main.py``. Se não tiver python na sua máquina, pode usar qualquer outra linguagem. O foco não é esse e será tranquilho seguir o tutorial.
 
-O Git trabalha com repositorios. Um repositorio nada mais é do que uma pasta que foi "inicializada" pelo Git. Para isso, execute o comando na pasta que você criou:
-```console
-$ git init
-Initialized empty Git repository in /caminho\_para\_sua_pasta/.git/
-```
-Se executar ``ls -a`` no seu terminal, verá que o Git criou uma pasta chamada ``.git`` no seu diretótio atual. A presença dessa pasta é que indica que a pasta e todos os arquivos e subdiretórios são partes de um mesmo repositório Git. Note que todas as informações que o Git possui sobre o repositorio estão nessa pasta ``.git``. Remova ela e essa pasta voltará a ser uma pasta normal novamente.
+Com um repositorio e um arquivo criado, já é possível executar o comando mais repetido do Git:
 
-Com um repositorio criado, já é possível executar o comando mais repetido do Git:
 ```console
 $ git status
 On branch master
@@ -53,13 +63,15 @@ nothing added to commit but untracked files present (use "git add" to track)
 ```
 Esse comando mostra diversas informações sobre o repositório. Vamos focar só no fato de que ele está dizendo que o arquivo ``main.py`` está "untracked".
 
-Mesmo que você tenha criado o repositorio, isso não significa que o Git irá versionar tudo que está dentro do repositorio. Você precisa explicitamente dizer a ele quais arquivos você quer versionar. No ``git status`` o Git sempre mostraŕa quais arquivos ele não está rastreando.
+Mesmo que você tenha criado o repositorio, isso não significa que o Git irá versionar tudo que está dentro do repositorio. Você precisa explicitamente dizer a ele quais arquivos você quer versionar. No ``git status`` o Git sempre mostrará quais arquivos ele não está rastreando, ou seja, estão "untracked".
 
 Para que o Git rastreie esse arquivo, execute:
+
 ```console
 $ git add main.py
 ```
 E depois o ``git status`` novamente:
+
 ```console
 $ git status
 On branch master
@@ -71,9 +83,12 @@ Changes to be committed:
  
  	new file:   main.py
 ```
-Agora que o Git reconhece nossa arquivo, podemos criar um ``commit``, que efetivamente diz ao Git para salvar nossas alterações no repositorio. Como dito antes, o Git permite a você entender as alterações a serem feitas. Para isso, ele irá pedir uma descrição de que alteração foi feita. Vamos simplesmente usar "Adicionando arquivo main.py." como descrição.
-> Atenço: O Git precisa de seu nome e email para registrar quem fez as mudanças.
-> Para registrar essas informações, execute ``git config --global --edit``e coloque seu nome e email.
+Agora que o Git está rastreando nosso arquivo, podemos criar um ``commit``. Como dito antes, o Git permite a você entender as alterações a serem feitas. Para isso, ele irá pedir uma descrição de que alteração foi feita e também precisará saber quem é você. 
+
+Para dizer a ele quem deve ser considerado o criador do commit, execute o comando ``git config --global --edit`` e preencha no arquivo o seu username e email. Lembre de retirar os comentários das linhas com essas informações, removendo os ``#`` do começo das linhas.
+
+Para passar a descrição do commit, usaremos a flag ``-m`` seguida da mensagem entre aspas:
+
 ```console
 $ git commit -m "Adicionando arquivo main.py."
 [master (root-commit) 324e034] Adicionando arquivo main.py.
@@ -82,9 +97,10 @@ $ git commit -m "Adicionando arquivo main.py."
 ```
 Caso você não passe o argumento ``-m``, um editor de texto feito para terminal deverá abrir para que você coloque a mensagem. Basta editar o arquivo e salvar para terminar o commit.
 
-Executando git status novamente vemos que não existe nenhuma mudança presente.
+Executando ``git status`` novamente vemos que não existe nenhuma mudança presente.
 
-O que acabamos de fazer com apenas um arquivo também pode ser feito para multiplos arquivos. Vamos criar um novo e commitar:
+Como dito antes, o que acabamos de fazer com apenas um arquivo também pode ser feito para multiplos arquivos. Ou seja, um commit pode conter mudanças de mais de um arquivo. Vamos criar um novo e commitar:
+
 ```console
 $ echo "Repositorio para demonstração." >> readme.txt # criando o arquivo usando bash
 $ git add readme.txt
@@ -93,7 +109,8 @@ $ git commit -m "Adicionando readme"
  1 file changed, 1 insertion(+)
  create mode 100644 readme.txt
 ```
-O Git coloca todas as mudanças que você faz em todos os arquivos dentro desse diretorio e nos subdiretorios juntos em um commit. Edite ambos os arquivos e veja:
+Edite ambos os arquivos e veja:
+
 ```console
 $ git status
 On branch master
@@ -107,6 +124,7 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
 O git considera ambas as mudanças. Para commitá-las, basta seguir os mesmos passos de antes: ``git add`` e ``git commit``.
+
 ```console
 $ git add main.py
 $ git add readme.txt 
@@ -114,8 +132,8 @@ $ git commit -m "Pequenas modificações"
 [master 9d71ac2] Pequenas modificações
  2 files changed, 2 insertions(+), 2 deletions(-)
 ```
-> Existem duas coisa que você pode fazer para tornar esse processo mais rápido. Um é executar ``git add .``, que adiciona as modificações de todos os arquivos e arquivos untracked. 
-> Outra, ainda melhor, é executar ``git commit -am 'sua mensagem'``. Ele adiciona as mudanças e cria um novo commit. Só tome cuidado porque o ``git commit -am`` **NÃO** adiciona arquivos que estão untracked.
+> Existem duas coisas que você pode fazer para tornar esse processo mais rápido. Uma é executar ``git add .``, que adiciona as modificações de todos os arquivos e arquivos untracked. 
+> Outra, ainda mais prática, é executar ``git commit -am 'sua mensagem'``. Preste atenção na flag ``-a`` passada. Ele adiciona as mudanças e cria um novo commit de uma vez só. Mas tome cuidado porque o ``git commit -am`` **NÃO** adiciona arquivos que estão untracked.
 > Sempre execute ``git status`` para entender o que você vai estar commitando. É comum fazer mudanças que você não espera e commita-lás sem querer.
 
 # Usando a Historia
@@ -123,7 +141,7 @@ $ git commit -m "Pequenas modificações"
 No começo desse tutorial eu disse que criamos versões dos arquivos de mode que:
 > você possa recuperar versões antigas e entender quais foram as mudanças que aconteceram entre essas versões.
 
-Até agora só criamos versões. Está na hora de olhar a história.
+Até agora só criamos commits. Está na hora de olhar o conjunto de commits que criamos, ou seja, a história de nossos arquivos.
 
 (TODO)
 
@@ -327,7 +345,7 @@ Changes to be committed:
 
 É importante notar que todos os comandos que recebem um nome de arquivo também aceitam padrões para trabalhar com mais de um arquivo de uma vez só, como por exemplo ``git add *.txt`` para adicionar todos os arquivos que terminam em ".txt" no diretorio atual.
 
-Para concluir, vamos falar de alguns conceitos que são mencionados na documentação do git e são importantes de conhecer.
+Para concluir, vamos falar de alguns conceitos que são mencionados na documentação do Git e são importantes de conhecer.
 
 Em textos relacionados a Git muitas vezes você ouvirá falar sobre "working tree" ou "working directory". Quando ler isso, o texto está se referenciando ao seu diretório, onde pode haver modificações ou não. É o lugar onde você efetivamente trabalha. Uma working tree é considerada "suja" quando existem modificações nela ou "limpa" caso contrário.
 
@@ -339,7 +357,10 @@ Podemos então dizer que um arquivo, para o Git, pode estar em um desses quatro 
 - **modificado**, quando o arquivo na working tree não está igual a ultima versão do indice.
 - **staged**, quando modificações no arquivo foram postas na area de staging para serem commitadas.
 
-Essa imagem resume bem os estados de um arquivo e como ele pode transitar entre esses estados:
+Essa imagem resume os estados de um arquivo e como ele pode transitar entre esses estados:
 ![ilustração dos estados de um arquivo e como navegar entre eles](https://raw.githubusercontent.com/stone-payments/git-workshop/master/git_file_states.png?token=AC8p7Gb-tZarTWHY5Czcjb6nuLnKBAFIks5Z6lHbwA%3D%3D)
+> Lembrando que é necessário executar ``git commit`` depois do ``git rm --cached`` para que o arquivo seja realmente deletado. Também lembre-se que mudanças individuais no arquivo e não necessariamente o arquivo todo podem ser adicionadas na área de staging.
+
+
 
 
