@@ -15,7 +15,7 @@ Changes not staged for commit:
 
 	modified:   readme.txt
 ```
-Se você executar ``git commit``, somente as mudanças em main.py serão commitadas e as mudanças em readme.txt *NÃO* serão. Ou seja, existe uma clara diferença para o Git entre arquivos modificados que ele detectou e quais das mudanças efetivamente devem ser adicionadas no próximo commit.
+Se você executar ``git commit``, somente as mudanças em main.py serão commitadas e as mudanças em readme.txt **NÃO** serão. Ou seja, existe uma clara diferença para o Git entre arquivos modificados que ele detectou e quais das mudanças efetivamente devem ser adicionadas no próximo commit.
 ```console
 $ git commit -m "Alterando main.py sem alterar readme.txt"
 [master 0247eab] test
@@ -151,7 +151,7 @@ index 184b866..e70ab09 100644
 +
 +# Fim do programa
 ```
-O ``git reset``, nesse caso, funciona como o oposto do ``git add``, e até suporta a opção ``--path``. 
+O ``git reset``, nesse caso, funciona como o oposto do ``git add``, e até suporta a opção ``--patch``. 
 > Tome cuidado: ``git reset`` faz mais coisa do que simplesmente desfazer o ``git add``. 
 > Aquele parametro ``HEAD``, por exemplo, deve ser usado exatamente assim. No futuro revisitaremos o ``git reset`` e vamos entender o que ``HEAD`` significa.
 
@@ -184,7 +184,7 @@ Untracked files:
 
 	readme.txt
 ```
-A opção ``--cached`` aqui na verdade quer dizer "staged". Ela diz ao Git para somente registrar a mudança da remoção na area de staging mas não efetivamente remover o arquivo. Como o ``git status`` mostra, o arquivo ainda existe no sistema de arquivos mas está untracked. Usar o ``git rm`` sem a opção ``--cached`` é equivalente a remover o arquivo manualmente e depois usar ``git add`` para registrar a mudança na area de staging.
+A opção ``--cached`` aqui na verdade quer dizer "staged". Ela diz ao Git para somente registrar a mudança da remoção na area de staging mas não efetivamente remover o arquivo. Como o ``git status`` mostra, o arquivo ainda existe no sistema de arquivos mas está untracked. Usar o ``git rm`` sem a opção ``--cached`` é equivalente a remover o arquivo manualmente e depois usar ``git add`` para registrar a remoção na area de staging.
 ```console
 $ git rm readme.txt
 $ git add readme.txt 
