@@ -322,4 +322,4 @@ O primeiro checkout mostra uma mensagem sobre 'branchs', 'detached HEAD' e a fla
 
 Mas como dito na parte anterior do tutorial, primeiro vamos voltar ao fluxo básico do ``git status``, ``git add`` e ``git commit`` para explorá-lo com mais calma e conhecer alguns conceitos essenciais ao Git.
 
-[Parte 3: O Indice e a Area de Staging](3_staging_and_index.md)
+[Parte 3: O Indice e a Area de Staging](3_staging_e_indice.md)
