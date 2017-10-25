@@ -213,13 +213,14 @@ Podemos então dizer que um arquivo, para o Git, pode estar em um desses quatro 
 
 Essa imagem resume os estados de um arquivo e como ele pode transitar entre esses estados:
 ![ilustração dos estados de um arquivo e como navegar entre eles](imagens/git_estados_de_arquivos.png)
-> Lembrando que é necessário executar ``git commit`` depois do ``git rm --cached`` para que o arquivo seja realmente deletado, já que nenhuma mudança é registrada fora de um commit. Também lembre-se que mudanças individuais no arquivo, e não necessariamente o arquivo todo, podem ser adicionadas na área de staging.
+
+Lembrando que é necessário executar ``git commit`` depois do ``git rm --cached`` para que o arquivo seja realmente deletado, já que nenhuma mudança é registrada fora de um commit. Também lembre-se que mudanças individuais no arquivo, e não necessariamente o arquivo todo, podem ser adicionadas na área de staging.
 
 
 ---
 
 
-Com esses conhecimentos em mãos, podemos fazer uma rápida explicação do que é o arquivo .gitignore, praticamente onipresente em qualquer repositório, mas que geralmente causa confusão porque geralmente não se tem um bom conhecimento dos conceitos básicos do Git.
+Com esses conhecimentos em mãos, podemos fazer uma rápida explicação do que é o arquivo .gitignore, praticamente onipresente em qualquer repositório, mas que causa confusão porque geralmente não se tem um bom conhecimento dos conceitos básicos do Git.
 
 Depois, vamos focar em referencias, o conceito mais importante do Git depois de commits.
 
