@@ -1,4 +1,5 @@
 # O Indice e a Area de Staging
+
 Um ponto interessante que você pode estar se perguntando é: porque eu preciso sempre confirmar todas as mudanças que estou fazendo com ``git add``? A resposta é que o Git permite que você commite apenas *parte* das mudanças que você realizou. Edite ambos os arquivos e execute ``git add`` em apenas um deles:
 ```console
 $ git add main.py
@@ -39,6 +40,7 @@ print("Hello World")
 # Fim do programa
 ```
 E agora execute ``git add --patch``:
+
 ```console
 $ git add --patch
 diff --git a/main.py b/main.py
@@ -151,9 +153,8 @@ index 184b866..e70ab09 100644
 +
 +# Fim do programa
 ```
-O ``git reset``, nesse caso, funciona como o oposto do ``git add``, e até suporta a opção ``--patch``. 
-> Tome cuidado: ``git reset`` faz mais coisa do que simplesmente desfazer o ``git add``. 
-> Aquele parametro ``HEAD``, por exemplo, deve ser usado exatamente assim. No futuro revisitaremos o ``git reset`` e vamos entender o que ``HEAD`` significa.
+O ``git reset``, nesse caso, funciona como o oposto do ``git add``, e até suporta a opção ``--patch``, como mostrado.
+> Tome cuidado: ``git reset`` faz mais coisa do que simplesmente desfazer o ``git add``. Aquele parametro ``HEAD``, por exemplo, deve ser usado exatamente assim. No futuro revisitaremos o ``git reset`` e vamos entender o que ``HEAD`` significa.
 
 Só existe mais duas coisas para saber sobre arquivos e a área de staging: como desfazer mudanças em um arquivo e como retirar o arquivo do Git.
 
@@ -212,4 +213,14 @@ Podemos então dizer que um arquivo, para o Git, pode estar em um desses quatro 
 
 Essa imagem resume os estados de um arquivo e como ele pode transitar entre esses estados:
 ![ilustração dos estados de um arquivo e como navegar entre eles](https://raw.githubusercontent.com/stone-payments/git-workshop/master/images/git_file_states.png?token=AC8p7Gb-tZarTWHY5Czcjb6nuLnKBAFIks5Z6lHbwA%3D%3D)
-> Lembrando que é necessário executar ``git commit`` depois do ``git rm --cached`` para que o arquivo seja realmente deletado. Também lembre-se que mudanças individuais no arquivo e não necessariamente o arquivo todo podem ser adicionadas na área de staging.
+> Lembrando que é necessário executar ``git commit`` depois do ``git rm --cached`` para que o arquivo seja realmente deletado, já que nenhuma mudança é registrada fora de um commit. Também lembre-se que mudanças individuais no arquivo, e não necessariamente o arquivo todo, podem ser adicionadas na área de staging.
+
+
+---
+
+
+Com esses conhecimentos em mãos, podemos fazer uma rápida explicação do que é o arquivo .gitignore, praticamente onipresente em qualquer repositório, mas que geralmente causa confusão porque geralmente não se tem um bom conhecimento dos conceitos básicos do Git.
+
+Depois, vamos focar em referencias, o conceito mais importante do Git depois de commits.
+
+Parte 4: Gitignore (:construction:Em construção:construction:)

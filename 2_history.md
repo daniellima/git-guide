@@ -315,3 +315,11 @@ $ ls
 main.py
 ```
 O primeiro checkout mostra uma mensagem sobre 'branchs', 'detached HEAD' e a flag ``-b`` do ``git checkout``. Isso acontece porque o comando ``git checkout`` não é só usado com esse motivo. Na verdade, ele está mais relacionado à refencias. Após saber sobre referencias a mensagem que o ``git checkout`` mostrou fará bem mais sentido.
+
+
+---
+
+
+Mas como dito na parte anterior do tutorial, primeiro vamos voltar ao fluxo básico do ``git status``, ``git add`` e ``git commit`` para explorá-lo com mais calma e conhecer alguns conceitos essenciais ao Git.
+
+[Parte 3: O Indice e a Area de Staging](3_staging_and_index.md)
