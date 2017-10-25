@@ -170,7 +170,8 @@ Por fim, algumas dicas para agilizar esse fluxo e deixar o dia a dia mais rápid
 
 Ficaram algumas pontas soltas nesse processo: 
 - porque é necessário ficar executando ``git add`` toda hora? 
-- Como podemos ver os commits que já criamos? 
+- Como podemos ver os commits que já criamos?
+
 Vamos voltar ao fluxo básico mais a frente. Vários comandos úteis ainda não foram mencionados e alguns conceitos foram pulados para simplificar a introdução. Por exemplo, o que o adjetivo "staged" quer dizer. Mas na proxima parte vamos focar especificamente nos commits criados, ou seja, na história de nosso repositório. Não faz muito sentido aprender a criar uma história se não podemos acessa-la.
 
 [Parte 2: Historia](2_historia.md)

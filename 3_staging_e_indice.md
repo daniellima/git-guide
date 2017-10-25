@@ -212,7 +212,7 @@ Podemos então dizer que um arquivo, para o Git, pode estar em um desses quatro 
 - **staged**, quando modificações no arquivo foram postas na area de staging para serem commitadas.
 
 Essa imagem resume os estados de um arquivo e como ele pode transitar entre esses estados:
-![ilustração dos estados de um arquivo e como navegar entre eles](https://raw.githubusercontent.com/stone-payments/git-workshop/master/images/git_file_states.png?token=AC8p7Gb-tZarTWHY5Czcjb6nuLnKBAFIks5Z6lHbwA%3D%3D)
+![ilustração dos estados de um arquivo e como navegar entre eles](imagens/git_estados_de_arquivos.png)
 > Lembrando que é necessário executar ``git commit`` depois do ``git rm --cached`` para que o arquivo seja realmente deletado, já que nenhuma mudança é registrada fora de um commit. Também lembre-se que mudanças individuais no arquivo, e não necessariamente o arquivo todo, podem ser adicionadas na área de staging.
 
 
@@ -223,4 +223,4 @@ Com esses conhecimentos em mãos, podemos fazer uma rápida explicação do que 
 
 Depois, vamos focar em referencias, o conceito mais importante do Git depois de commits.
 
-Parte 4: Gitignore (:construction:Em construção:construction:)
+Parte 4: Gitignore :construction:Em construção:construction:

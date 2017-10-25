@@ -174,7 +174,7 @@ $ git revert f886c1d
 $ ls
 main.py
 ```
-Caso voce queira reverter mais de um commit, basta executar git reset hash1..hash2 e o git irá reverter todos os commits entre o commit hash1 e o hash2, criando commits opostos em ordem reversa. Note que o hash1 é o commit anterior ao ultimo cujas alterações queremos desfazer. 
+Caso voce queira reverter mais de um commit, basta executar ``git reset hash1..hash2`` e o git irá reverter todos os commits entre o commit hash1 e o hash2, criando commits opostos em ordem reversa. Note que o hash1 é o commit anterior ao ultimo cujas alterações queremos desfazer. 
 
 Vamos aproveitar isso para reverter os dois ultimos commits, que foram responsáveis por reverter o repositorio para um estado igual ao primeiro commit. Com isso, o repositorio voltará ao estado que estava antes de começarmos as reversões:
 
