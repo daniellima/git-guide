@@ -109,7 +109,7 @@ $ git commit -m "Adicionando readme"
  1 file changed, 1 insertion(+)
  create mode 100644 readme.txt
 ```
-Edite ambos os arquivos e veja:
+Agora edite ambos os arquivos. Como o nosso "Hello World!" está muito desanimado, adicione algumas exclamações e mude o texto do readme.txt. Agora execute ``git status``:
 
 ```console
 $ git status
@@ -123,18 +123,46 @@ Changes not staged for commit:
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
-O git considera ambas as mudanças. Para commitá-las, basta seguir os mesmos passos de antes: ``git add`` e ``git commit``.
+O git considera ambas as mudanças e diz que os arquivos estão "not staged for commit"(pode entender "staged" por enquanto como "marcadas"). Se realizarmos ``git commit``, podemos ver que não existem alterações para o proximo commit, embora existam arquivos modificados: 
+
+```console
+$ git commit -m "qualquer mensagem"
+On branch master
+Changes not staged for commit:
+	modified:   main.py
+	modified:   readme.txt
+
+no changes added to commit
+```
+Isso acontece porque também é preciso dizer ao Git quais alterações que irão compor o novo commit, assim como no caso de um arquivo recem criado marcado como untracked. Utilizamos ``git add`` para dizer ao Git que queremos a mudança no próximo commit.
 
 ```console
 $ git add main.py
-$ git add readme.txt 
+$ git add readme.txt
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   main.py
+	modified:   readme.txt
+```
+Depois do ``git add`` o Git mostra essas mudanças como "changes to be commited", que significa que elas serão sim adicionadas em um novo commit. Agora basta utilizar ``git commit``:
+
+```console
 $ git commit -m "Pequenas modificações"
 [master 9d71ac2] Pequenas modificações
  2 files changed, 2 insertions(+), 2 deletions(-)
 ```
-> Existem duas coisas que você pode fazer para tornar esse processo mais rápido. Uma é executar ``git add .``, que adiciona as modificações de todos os arquivos e arquivos untracked. 
-> Outra, ainda mais prática, é executar ``git commit -am 'sua mensagem'``. Preste atenção na flag ``-a`` passada. Ele adiciona as mudanças e cria um novo commit de uma vez só. Mas tome cuidado porque o ``git commit -am`` **NÃO** adiciona arquivos que estão untracked.
-> Sempre execute ``git status`` para entender o que você vai estar commitando. É comum fazer mudanças que você não espera e commita-lás sem querer.
+Depois dessa introdução ao Git, podemos resumir o fluxo básico dessa forma:
+- ``git status`` para entender o que você vai estar commitando. É comum fazer mudanças que você não espera e commita-lás sem querer.
+- ``git add`` para adicionar arquivos ou mudanças no proximo commit. Lembre que é possível adicionar mudanças de mais de um arquivo. Cada commit é uma versão de todos os arquivos, e não de um só.
+- ``git commit`` para criar o commit propriamente dito.
+
+Por fim, algumas dicas para agilizar esse fluxo e deixar o dia a dia mais rápido:
+
+1. Executar ``git add .``, que adiciona de uma vez só as modificações de todos os arquivos e arquivos untracked.
+2. Ainda mais prático, é executar ``git commit -am 'sua mensagem'``. A flag ``-a`` passada faz o ``git commit`` adicionar todas as mudanças e criar um novo commit de uma vez só. Mas tome cuidado porque o ``git commit -am`` **NÃO** adiciona arquivos que estão untracked.
 
 
 
